@@ -42,6 +42,8 @@ db.once('open', function () {
   console.log('connected to mongod server');
 });
 
+
+mongoose.Promise = global.Promise;
 // db server connect
 mongoose.connect('mongodb://localhost/business-department', {useMongoClient: true});
 

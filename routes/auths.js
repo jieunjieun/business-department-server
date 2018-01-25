@@ -1,19 +1,4 @@
-module.exports = function (app, Auths) {
-    // app.post('/signup', function (req, res) {
-    //     var manager = new Auths();
-    //     manager.id = req.body.id;
-    //     manager.password = req.body.password;
-        
-    //     manager.save(function (err) {
-    //         if(err) {
-    //             console.error(err);
-    //             res.json({result: 0});
-    //             return;
-    //         }
-    //         res.json({result: 1});
-    //     });
-    // });
-
+module.exports = function (app, Auths) { 
     // 로그인
     app.post('/login', function (req, res, next) {
     
