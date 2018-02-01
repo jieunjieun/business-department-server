@@ -1,6 +1,6 @@
 module.exports = function (app, Auths) { 
 
-    // 로그인
+    // 로그인 사용하지 않아요!
     app.post('/login', function (req, res, next) {
     
        var inputId = req.body.id;

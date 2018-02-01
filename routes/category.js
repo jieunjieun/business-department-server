@@ -4,6 +4,7 @@ module.exports = function (app, Categories) {
     const uuidv4 = require('uuid/v4');
     const fs = require('fs')
 
+   // 이미지 파일 저장
     var storage = multer.diskStorage({
       destination: function (req, file, cb) {
         cb(null, 'uploads/')
@@ -13,7 +14,7 @@ module.exports = function (app, Categories) {
       }
     })
 
-
+   // 파일 저장할 때 이름 변경
     var rename = function (uuid, original) {
         var _fileLen = original.length;
         var _lastDot = original.lastIndexOf('.');
@@ -57,7 +58,9 @@ module.exports = function (app, Categories) {
             console.error(err);
         })
     })
+ 
 
+    //사진 업데이트시 모두 다 업로드됨.
     app.post('/upload', upload.array('a'), function (req, res) {
         console.log(req);
         console.log(req.files);
@@ -125,14 +128,6 @@ module.exports = function (app, Categories) {
         var newVideo = req.body.video;
         var news = new Categories();
         var files = req.body.files
-            // Categories.update({"company.ename" : newEname }, {$set: { "images": files }})
-            // .catch((err) => {
-            //     console.error(err);
-            // })
-
-            // Categories.find({"company.ename" : newEname}).then((result) => console.log(result))
-            
-            // Categories.update({name: req.body.category}, {$addToSet: {company: {$each: req.body.company}}})
 
             Categories.update({"company.ename" : newEname}, {$pull: { "company" : { "ename": newEname }}})
                 .then((result) => {
@@ -143,10 +138,10 @@ module.exports = function (app, Categories) {
                 }).catch((err) => {
                     console.error(err)
                 })
-        
-
     })
+    
 
+    //수정페이지에서 입력을 눌렀을때. -> 또한 모두 업데이트
     app.post('/modifyjustinfo', function (req, res) {
         var origin = req.body.origin.com;    //원래 ename <- 이걸로 쿼리 조회함
         var newCompany = req.body.company;   //새로운 회사 이름
@@ -172,6 +167,7 @@ module.exports = function (app, Categories) {
         })
     })
 
+    // 이미지 변경시 저장
     app.post('/modifyImage', upload.single('a'), function (req, res) {
         res.send({"path": req.file.path})
     })
