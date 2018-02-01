@@ -1,4 +1,5 @@
 module.exports = function (app, Auths) { 
+
     // 로그인
     app.post('/login', function (req, res, next) {
     
